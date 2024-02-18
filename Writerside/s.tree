@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="s"
+                 name="Scripts"
+                 start-page="scripts.md">
+
+    <toc-element topic="scripts.md">
+        <toc-element topic="table-of-contents.md">
+        </toc-element>
+        <toc-element topic="fun-scripts.md">
+            <toc-element topic="macos-fontawesome-directory-icons.md"/>
+        </toc-element>
+    </toc-element>
+</instance-profile>
