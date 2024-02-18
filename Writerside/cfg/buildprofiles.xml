@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildprofiles xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/build-profiles.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <variables></variables>
+    <build-profile instance="s">
+        <variables>
+            <noindex-content>false</noindex-content>
+        </variables>
+        <footer>
+            <copyright>Patrick Maul 2024</copyright>
+            <social type="instagram" href="https://www.instagram.com/patrickmlml"></social>
+            <social type="linkedin" href="https://www.linkedin.com/in/patrick-maul-81ab801a9/"></social>
+            <social type="email" href="mailto:maulpatrick1996@gmail.com"></social>
+        </footer>
+    </build-profile>
+
+</buildprofiles>
