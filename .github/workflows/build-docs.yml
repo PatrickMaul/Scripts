@@ -16,7 +16,7 @@ env:
   ALGOLIA_APP_NAME: IATIWZA4NO
   ALGOLIA_INDEX_NAME: prod_Scripts_Documentation_GitHub_Pages
   ALGOLIA_KEY: ${{ secrets.ALGOLIA_KEY }}
-  ALGOLIA_ARTIFACT: algolia-indexes-S
+  ALGOLIA_ARTIFACT: webHelpS2-all.zip
   CONFIG_JSON_PRODUCT: S
   CONFIG_JSON_VERSION: 0.0.1
 
