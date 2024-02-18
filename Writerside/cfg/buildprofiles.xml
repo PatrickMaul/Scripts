@@ -6,6 +6,10 @@
     <build-profile instance="s">
         <variables>
             <noindex-content>false</noindex-content>
+            <algolia-id>IATIWZA4NO</algolia-id>
+            <algolia-index>prod_Scripts_Documentation_GitHub_Pages</algolia-index>
+            <algolia-api-key>9c904a221230efe0ca187c0c7e2ca0da</algolia-api-key>
+            <web-root>https://some.domain</web-root>
         </variables>
         <footer>
             <copyright>Patrick Maul 2024</copyright>
