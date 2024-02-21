@@ -75,6 +75,7 @@ generate_icons() {
     declare -a result=()
     declare -i total_icons=0
     declare -i processed_icons=0
+    declare -a fails=()
 
     # Count total number of SVG files for progress calculation
     for dir in "${SOURCE_DIRECTORY}"/*/; do
@@ -104,21 +105,35 @@ generate_icons() {
                     iconset_path="${TARGET_DIRECTORY}/$(basename "$icon" .svg)"
                     iconset_svg_path="$iconset_path/$icon"
 
-                    # Make iconset dir
-                    mkdir -p "$iconset_path"
-
-                    # Copy svg into target
-                    cp "$icon_svg_path" "$iconset_svg_path"
-                    folderify --output-icns "$iconset_path/$(basename "$icon" .svg).icns" --output-iconset "$iconset_path/$(basename "$icon" .svg).iconset" --no-progress --verbose "$iconset_svg_path" "$iconset_path" > /dev/null 2>&1
-
-                    # Increment processed icons and update progress
-                    ((processed_icons++))
-                    show_progress "$processed_icons" "$total_icons" "$icon" "$iconset_path"
+                    echo
+                    echo "Start processing: $icon"
+                    if [ -d "$iconset_path" ]; then
+                      echo "Target directory ('$iconset_path') already exists!"
+                      echo "Skipping $icon"
+                    else
+                      # Make iconset dir
+                      mkdir -p "$iconset_path"
+                      echo "Make dir: $iconset_path"
+                      # Copy svg into target
+                      cp "$icon_svg_path" "$iconset_svg_path"
+                      echo "Copied from: $icon_svg_path"
+                      echo "Copied   to: $iconset_svg_path"
+                      folderify --output-icns "$iconset_path/$(basename "$icon" .svg).icns" --output-iconset "$iconset_path/$(basename "$icon" .svg).iconset" --no-progress --verbose "$iconset_svg_path" "$iconset_path" > /dev/null 2>&1
+                      echo "Successfully generated MacOS dir icon for: $icon"
+                    fi
+                else
+                  echo "'$icon' is not a file!"
+                  echo "Skipping '$icon'"
                 fi
+                # Increment processed icons and update progress
+                ((processed_icons++))
+                show_progress "$processed_icons" "$total_icons" "$icon" "$iconset_path"
             done
-
             # Reset to the parent directory
             cd "${SOURCE_DIRECTORY}" || exit
+        else
+          echo "'$dir' is not a directory!"
+          echo "Skipping '$dir'"
         fi
     done
 }
@@ -134,7 +149,9 @@ show_progress() {
     local unfilled=$((50 - filled)) # Remaining parts
 
     # Calculate how many lines we want to move up
-    local lines_to_move_up=3
+    # local lines_to_move_up=0
+    # Move cursor up to overwrite previous progress display
+    # printf "\033[%dA" $lines_to_move_up
 
     # Display progress bar on its own line
     printf "\r["
@@ -143,13 +160,10 @@ show_progress() {
     printf " %d%% (%d/%d)\n" $progress $current_step $total_steps
 
     # Display additional "information on the next %s" line
-    printf "\r\033[K" # Clear the line
-    echo "Last processed icon: $icon_processed"
-    printf "\r\033[K" # Clear the line
-    echo "Target directory: $icon_target"
-
-    # Move cursor up to overwrite previous progress display
-    printf "\033[%dA" $lines_to_move_up
+    # printf "\r\033[K" # Clear the line
+    # echo "Last processed icon: $icon_processed"
+    # printf "\r\033[K" # Clear the line
+    # echo "Target directory: $icon_target"
 }
 
 # Main logic of the script
@@ -167,7 +181,7 @@ main() {
 SOURCE_DIRECTORY=""
 TARGET_DIRECTORY=""
 SOURCE_SPECIFIED_WITH_S=false
-LOG_PREFIX="[$0] - [$(date +%D\ %T)] ->"
+LOG_PREFIX="[$0] ->"
 
 # Entry point of the script
 main "$@"
